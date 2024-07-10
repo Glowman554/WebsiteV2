@@ -26,7 +26,9 @@ export async function loadProjects(limit: number): Promise<Project[]> {
 }
 
 export async function loadProjectsAll(): Promise<Project[]> {
-    return await db.select().from(projects).all();
+    return await db.select().from(projects).orderBy(
+        desc(projects.creationDate),
+    ).all();
 }
 
 export async function loadProject(id: number): Promise<Project | undefined> {

@@ -20,9 +20,7 @@ export default async function Home() {
                 <br />
 
                 <h2>My Latest Projects</h2>
-                {projects.slice(0, 5).map((project) => (
-                    <ProjectField data={project} />
-                ))}
+                {projects.map((project) => <ProjectField data={project} />)}
                 <VisitCounter />
             </div>
         </>
