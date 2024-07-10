@@ -1,5 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import { LoginField } from "../../islands/Account.tsx";
+import { LoginField } from "../../../islands/Account.tsx";
 
 export default function Login() {
     return (

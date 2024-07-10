@@ -7,6 +7,13 @@ import {
     passwordOk,
 } from "../users.ts";
 import superjson from "superjson";
+import {
+    createProject,
+    deleteProject,
+    loadProjects,
+    loadProjectsAll,
+    updateProject,
+} from "../projects.ts";
 
 const t = initTRPC.create({ transformer: superjson });
 
@@ -14,6 +21,14 @@ const usernameAndPassword = z.object({
     username: z.string(),
     password: z.string(),
 });
+
+async function adminOnly(token: string) {
+    const user = await getUserByToken(token);
+    if (!user || !user.admin) {
+        throw new Error("Not allowed");
+    }
+    return user;
+}
 
 const users = t.router({
     test: t.procedure.input(z.string()).query(
@@ -37,6 +52,54 @@ const users = t.router({
             return createToken(input.username);
         },
     ),
+    isAdmin: t.procedure.input(z.string()).query(async ({ input }) => {
+        const user = await getUserByToken(input);
+        if (!user) {
+            throw new Error("Invalid token");
+        }
+        return user.admin;
+    }),
+});
+
+const projects = t.router({
+    create: t.procedure.input(z.object({
+        name: z.string(),
+        link: z.string(),
+        description: z.string(),
+        token: z.string(),
+    })).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        return createProject(input.name, input.link, input.description);
+    }),
+    loadAll: t.procedure.query(async () => {
+        return await loadProjectsAll();
+    }),
+    load: t.procedure.input(z.number().int().max(5)).query(
+        async ({ input }) => {
+            return await loadProjects(input);
+        },
+    ),
+    delete: t.procedure.input(
+        z.object({ token: z.string(), id: z.number().int() }),
+    ).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        await deleteProject(input.id);
+    }),
+    update: t.procedure.input(z.object({
+        name: z.string(),
+        link: z.string(),
+        description: z.string(),
+        id: z.number().int(),
+        token: z.string(),
+    })).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        return updateProject(
+            input.name,
+            input.link,
+            input.description,
+            input.id,
+        );
+    }),
 });
 
 export const appRouter = t.router({
@@ -45,6 +108,7 @@ export const appRouter = t.router({
         return `hello ${input ?? "world"}`;
     }),
     users,
+    projects,
 });
 
 export type AppRouter = typeof appRouter;

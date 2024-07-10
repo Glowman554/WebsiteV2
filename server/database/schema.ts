@@ -17,3 +17,13 @@ export const sessions = sqliteTable("sessions", {
         sql`(strftime('%s', 'now'))`,
     ).notNull(),
 });
+
+export const projects = sqliteTable("projects", {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    name: text("name").notNull(),
+    link: text("link").notNull(),
+    description: text("description").notNull(),
+    creationDate: integer("creation_date", { mode: "timestamp" }).default(
+        sql`(strftime('%s', 'now'))`,
+    ).notNull(),
+});
