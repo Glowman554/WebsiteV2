@@ -4,6 +4,7 @@ import { sql } from "drizzle-orm";
 export const users = sqliteTable("users", {
     username: text("username").primaryKey(),
     passwordHash: text("password_hash").notNull(),
+    admin: integer("admin", { mode: "boolean" }).notNull(),
 });
 
 export const sessions = sqliteTable("sessions", {

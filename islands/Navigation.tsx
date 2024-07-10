@@ -5,7 +5,14 @@ export function Navigation() {
     return (
         <div class={mainBarClass}>
             <a href="/">Home</a>
-
+            <a href="/about">About me</a>
+            <a href="/blog">Blog</a>
+            <a href="/fursona">Fursona</a>
+            <a href="/projects">Projects</a>
+            <a href="/contact">Contact me</a>
+            <a href="/downloads">Downloads</a>
+            <a href="https://github.com/Glowman554">GitHub</a>
+            
             <a
                 href="javascript:void(0);"
                 onClick={() => {
