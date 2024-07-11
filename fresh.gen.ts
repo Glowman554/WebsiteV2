@@ -4,15 +4,18 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $about from "./routes/about.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_trpc_path_ from "./routes/api/trpc/[...path].ts";
 import * as $blog from "./routes/blog.tsx";
 import * as $blog_id_ from "./routes/blog/[id].tsx";
+import * as $fursona from "./routes/fursona.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $internal_account_create from "./routes/internal/account/create.tsx";
 import * as $internal_account_login from "./routes/internal/account/login.tsx";
-import * as $internal_blog_create from "./routes/internal/blog/create.tsx";
-import * as $internal_blog_edit_id_ from "./routes/internal/blog/edit/[id].tsx";
+import * as $internal_index from "./routes/internal/index.tsx";
+import * as $internal_post_create from "./routes/internal/post/create.tsx";
+import * as $internal_post_edit_id_ from "./routes/internal/post/edit/[id].tsx";
 import * as $internal_project_create from "./routes/internal/project/create.tsx";
 import * as $internal_project_edit_id_ from "./routes/internal/project/edit/[id].tsx";
 import * as $internal_project_view_id_ from "./routes/internal/project/view/[id].tsx";
@@ -30,15 +33,18 @@ const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/about.tsx": $about,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/trpc/[...path].ts": $api_trpc_path_,
     "./routes/blog.tsx": $blog,
     "./routes/blog/[id].tsx": $blog_id_,
+    "./routes/fursona.tsx": $fursona,
     "./routes/index.tsx": $index,
     "./routes/internal/account/create.tsx": $internal_account_create,
     "./routes/internal/account/login.tsx": $internal_account_login,
-    "./routes/internal/blog/create.tsx": $internal_blog_create,
-    "./routes/internal/blog/edit/[id].tsx": $internal_blog_edit_id_,
+    "./routes/internal/index.tsx": $internal_index,
+    "./routes/internal/post/create.tsx": $internal_post_create,
+    "./routes/internal/post/edit/[id].tsx": $internal_post_edit_id_,
     "./routes/internal/project/create.tsx": $internal_project_create,
     "./routes/internal/project/edit/[id].tsx": $internal_project_edit_id_,
     "./routes/internal/project/view/[id].tsx": $internal_project_view_id_,

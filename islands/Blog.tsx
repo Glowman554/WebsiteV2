@@ -121,7 +121,7 @@ export function PostEditButton(props: { id: number }) {
                     () => location.href = "/",
                 );
             }}
-            edit={() => location.href = "/internal/blog/edit/" + props.id}
+            edit={() => location.href = "/internal/post/edit/" + props.id}
         />
     );
 }
