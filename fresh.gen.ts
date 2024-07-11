@@ -9,6 +9,7 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_trpc_path_ from "./routes/api/trpc/[...path].ts";
 import * as $blog from "./routes/blog.tsx";
 import * as $blog_id_ from "./routes/blog/[id].tsx";
+import * as $contact from "./routes/contact.tsx";
 import * as $downloads from "./routes/downloads.tsx";
 import * as $fursona from "./routes/fursona.tsx";
 import * as $index from "./routes/index.tsx";
@@ -28,6 +29,7 @@ import * as $Account from "./islands/Account.tsx";
 import * as $Blog from "./islands/Blog.tsx";
 import * as $Download from "./islands/Download.tsx";
 import * as $EditButtons from "./islands/EditButtons.tsx";
+import * as $MessageField from "./islands/MessageField.tsx";
 import * as $Navigation from "./islands/Navigation.tsx";
 import * as $Projects from "./islands/Projects.tsx";
 import * as $TrpcPlayground from "./islands/TrpcPlayground.tsx";
@@ -43,6 +45,7 @@ const manifest = {
     "./routes/api/trpc/[...path].ts": $api_trpc_path_,
     "./routes/blog.tsx": $blog,
     "./routes/blog/[id].tsx": $blog_id_,
+    "./routes/contact.tsx": $contact,
     "./routes/downloads.tsx": $downloads,
     "./routes/fursona.tsx": $fursona,
     "./routes/index.tsx": $index,
@@ -64,6 +67,7 @@ const manifest = {
     "./islands/Blog.tsx": $Blog,
     "./islands/Download.tsx": $Download,
     "./islands/EditButtons.tsx": $EditButtons,
+    "./islands/MessageField.tsx": $MessageField,
     "./islands/Navigation.tsx": $Navigation,
     "./islands/Projects.tsx": $Projects,
     "./islands/TrpcPlayground.tsx": $TrpcPlayground,
