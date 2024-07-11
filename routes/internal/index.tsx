@@ -9,13 +9,16 @@ export default function Index() {
                     <li>
                         <a href="/internal/account/create">Account creation</a>
                     </li>
-
                     <li>
                         <a href="/internal/post/create">Blog post creation</a>
                     </li>
-
                     <li>
                         <a href="/internal/project/create">Project creation</a>
+                    </li>
+                    <li>
+                        <a href="/internal/download/create">
+                            Download creation
+                        </a>
                     </li>
                 </ul>
             </div>

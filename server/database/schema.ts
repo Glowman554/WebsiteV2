@@ -36,3 +36,12 @@ export const posts = sqliteTable("posts", {
         sql`(strftime('%s', 'now'))`,
     ).notNull(),
 });
+
+export const downloads = sqliteTable("downloads", {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    name: text("name").notNull(),
+    link: text("link").notNull(),
+    creationDate: integer("creation_date", { mode: "timestamp" }).default(
+        sql`(strftime('%s', 'now'))`,
+    ).notNull(),
+});

@@ -9,10 +9,14 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_trpc_path_ from "./routes/api/trpc/[...path].ts";
 import * as $blog from "./routes/blog.tsx";
 import * as $blog_id_ from "./routes/blog/[id].tsx";
+import * as $downloads from "./routes/downloads.tsx";
 import * as $fursona from "./routes/fursona.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $internal_account_create from "./routes/internal/account/create.tsx";
 import * as $internal_account_login from "./routes/internal/account/login.tsx";
+import * as $internal_download_create from "./routes/internal/download/create.tsx";
+import * as $internal_download_edit_id_ from "./routes/internal/download/edit/[id].tsx";
+import * as $internal_download_view_id_ from "./routes/internal/download/view/[id].tsx";
 import * as $internal_index from "./routes/internal/index.tsx";
 import * as $internal_post_create from "./routes/internal/post/create.tsx";
 import * as $internal_post_edit_id_ from "./routes/internal/post/edit/[id].tsx";
@@ -22,6 +26,7 @@ import * as $internal_project_view_id_ from "./routes/internal/project/view/[id]
 import * as $projects from "./routes/projects.tsx";
 import * as $Account from "./islands/Account.tsx";
 import * as $Blog from "./islands/Blog.tsx";
+import * as $Download from "./islands/Download.tsx";
 import * as $EditButtons from "./islands/EditButtons.tsx";
 import * as $Navigation from "./islands/Navigation.tsx";
 import * as $Projects from "./islands/Projects.tsx";
@@ -38,10 +43,14 @@ const manifest = {
     "./routes/api/trpc/[...path].ts": $api_trpc_path_,
     "./routes/blog.tsx": $blog,
     "./routes/blog/[id].tsx": $blog_id_,
+    "./routes/downloads.tsx": $downloads,
     "./routes/fursona.tsx": $fursona,
     "./routes/index.tsx": $index,
     "./routes/internal/account/create.tsx": $internal_account_create,
     "./routes/internal/account/login.tsx": $internal_account_login,
+    "./routes/internal/download/create.tsx": $internal_download_create,
+    "./routes/internal/download/edit/[id].tsx": $internal_download_edit_id_,
+    "./routes/internal/download/view/[id].tsx": $internal_download_view_id_,
     "./routes/internal/index.tsx": $internal_index,
     "./routes/internal/post/create.tsx": $internal_post_create,
     "./routes/internal/post/edit/[id].tsx": $internal_post_edit_id_,
@@ -53,6 +62,7 @@ const manifest = {
   islands: {
     "./islands/Account.tsx": $Account,
     "./islands/Blog.tsx": $Blog,
+    "./islands/Download.tsx": $Download,
     "./islands/EditButtons.tsx": $EditButtons,
     "./islands/Navigation.tsx": $Navigation,
     "./islands/Projects.tsx": $Projects,

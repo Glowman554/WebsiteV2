@@ -7,14 +7,13 @@ import {
     passwordOk,
 } from "../users.ts";
 import superjson from "superjson";
-import {
-    createProject,
-    deleteProject,
-    loadProjects,
-    loadProjectsAll,
-    updateProject,
-} from "../projects.ts";
+import { createProject, deleteProject, updateProject } from "../projects.ts";
 import { createPost, deletePost, updatePost } from "../posts.ts";
+import {
+    createDownload,
+    deleteDownload,
+    updateDownload,
+} from "../downloads.ts";
 
 const t = initTRPC.create({ transformer: superjson });
 
@@ -72,14 +71,6 @@ const projects = t.router({
         await adminOnly(input.token);
         return createProject(input.name, input.link, input.description);
     }),
-    loadAll: t.procedure.query(async () => {
-        return await loadProjectsAll();
-    }),
-    load: t.procedure.input(z.number().int().max(5)).query(
-        async ({ input }) => {
-            return await loadProjects(input);
-        },
-    ),
     delete: t.procedure.input(
         z.object({ token: z.string(), id: z.number().int() }),
     ).mutation(async ({ input }) => {
@@ -136,6 +127,32 @@ const posts = t.router({
     }),
 });
 
+const downloads = t.router({
+    create: t.procedure.input(z.object({
+        name: z.string(),
+        link: z.string(),
+        token: z.string(),
+    })).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        return createDownload(input.name, input.link);
+    }),
+    delete: t.procedure.input(
+        z.object({ token: z.string(), id: z.number().int() }),
+    ).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        await deleteDownload(input.id);
+    }),
+    update: t.procedure.input(z.object({
+        name: z.string(),
+        link: z.string(),
+        id: z.number().int(),
+        token: z.string(),
+    })).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        return updateDownload(input.name, input.link, input.id);
+    }),
+});
+
 export const appRouter = t.router({
     hello: t.procedure.input(z.string().nullish()).query(async ({ input }) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -144,6 +161,7 @@ export const appRouter = t.router({
     users,
     projects,
     posts,
+    downloads,
 });
 
 export type AppRouter = typeof appRouter;
