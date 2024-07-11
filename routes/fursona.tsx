@@ -21,9 +21,9 @@ export default function Fursona() {
                 <br />
 
                 <h3>Glow</h3>
-                <img src="/fursona/glow_ref.png" />
-                <img src="/fursona/glow_suit.png" />
-                <img src="/fursona/glow_new.png" />
+                <img src="/fursona/glow_1.png" />
+                <img src="/fursona/glow_2.png" />
+                <img src="/fursona/glow_3.png" />
             </div>
         </>
     );
