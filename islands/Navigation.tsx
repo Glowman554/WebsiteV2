@@ -1,4 +1,14 @@
 import { useState } from "preact/hooks";
+import { useQueryState } from "../client/helper.ts";
+import { useIsAdmin, useToken } from "../client/token.ts";
+
+export function Internal() {
+    const q = useQueryState(true);
+    const token = useToken(q);
+    const isAdmin = useIsAdmin(token, q);
+
+    return isAdmin ? <a href="/internal">Internal</a> : <></>;
+}
 
 export function Navigation() {
     const [mainBarClass, setMainBarClass] = useState("glow-bar");
@@ -12,7 +22,8 @@ export function Navigation() {
             <a href="/contact">Contact me</a>
             <a href="/downloads">Downloads</a>
             <a href="https://github.com/Glowman554">GitHub</a>
-            
+            <Internal />
+
             <a
                 href="javascript:void(0);"
                 onClick={() => {
