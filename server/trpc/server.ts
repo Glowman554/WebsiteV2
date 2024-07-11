@@ -23,7 +23,7 @@ const usernameAndPassword = z.object({
     password: z.string(),
 });
 
-async function adminOnly(token: string) {
+export async function adminOnly(token: string) {
     const user = await getUserByToken(token);
     if (!user || !user.admin) {
         throw new Error("Not allowed");

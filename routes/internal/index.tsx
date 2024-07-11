@@ -1,3 +1,5 @@
+import UploadField from "../../islands/UploadButton.tsx";
+
 export default function Index() {
     return (
         <div class="glow-text">
@@ -21,6 +23,10 @@ export default function Index() {
                         </a>
                     </li>
                 </ul>
+            </div>
+            <br />
+            <div class="glow-field">
+                <UploadField />
             </div>
         </div>
     );

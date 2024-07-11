@@ -15,17 +15,17 @@ export function useInput(
     (
         e: JSX.TargetedEvent<HTMLInputElement | HTMLTextAreaElement, Event>,
     ) => void,
+    (t: string) => void,
 ] {
     const [text, setText] = useState(initial);
 
     const change = (
         e: JSX.TargetedEvent<HTMLInputElement | HTMLTextAreaElement, Event>,
     ) => {
-        // deno-lint-ignore no-explicit-any
-        setText((e.target as any).value as string);
+        setText(e.currentTarget.value);
     };
 
-    return [text, change];
+    return [text, change, setText];
 }
 
 export function withQuery<T>(

@@ -7,6 +7,7 @@ import * as $_app from "./routes/_app.tsx";
 import * as $about from "./routes/about.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_trpc_path_ from "./routes/api/trpc/[...path].ts";
+import * as $api_upload_name_ from "./routes/api/upload/[name].ts";
 import * as $blog from "./routes/blog.tsx";
 import * as $blog_id_ from "./routes/blog/[id].tsx";
 import * as $contact from "./routes/contact.tsx";
@@ -33,6 +34,7 @@ import * as $MessageField from "./islands/MessageField.tsx";
 import * as $Navigation from "./islands/Navigation.tsx";
 import * as $Projects from "./islands/Projects.tsx";
 import * as $TrpcPlayground from "./islands/TrpcPlayground.tsx";
+import * as $UploadButton from "./islands/UploadButton.tsx";
 import * as $VisitCounter from "./islands/VisitCounter.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -43,6 +45,7 @@ const manifest = {
     "./routes/about.tsx": $about,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/trpc/[...path].ts": $api_trpc_path_,
+    "./routes/api/upload/[name].ts": $api_upload_name_,
     "./routes/blog.tsx": $blog,
     "./routes/blog/[id].tsx": $blog_id_,
     "./routes/contact.tsx": $contact,
@@ -71,6 +74,7 @@ const manifest = {
     "./islands/Navigation.tsx": $Navigation,
     "./islands/Projects.tsx": $Projects,
     "./islands/TrpcPlayground.tsx": $TrpcPlayground,
+    "./islands/UploadButton.tsx": $UploadButton,
     "./islands/VisitCounter.tsx": $VisitCounter,
   },
   baseUrl: import.meta.url,

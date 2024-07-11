@@ -4,6 +4,7 @@ import { Query } from "../components/Query.tsx";
 import { Download } from "../server/downloads.ts";
 import { trpc } from "../server/trpc/client.ts";
 import { EditButton } from "./EditButtons.tsx";
+import { UploadButton } from "./UploadButton.tsx";
 
 function Common(props: {
     initialName: string;
@@ -20,7 +21,7 @@ function Common(props: {
     const isAdmin = useIsAdmin(token, q);
 
     const [name, nameChange] = useInput(props.initialName);
-    const [link, linkChange] = useInput(props.initialLink);
+    const [link, linkChange, setLink] = useInput(props.initialLink);
 
     return (
         <Query q={q}>
@@ -59,6 +60,7 @@ function Common(props: {
                                 >
                                     {props.submitText}
                                 </button>
+                                <UploadButton callback={setLink} />
                             </div>
                         </div>
                     )

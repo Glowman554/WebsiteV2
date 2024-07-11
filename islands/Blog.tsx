@@ -4,6 +4,7 @@ import { Query } from "../components/Query.tsx";
 import { Post } from "../server/posts.ts";
 import { trpc } from "../server/trpc/client.ts";
 import { EditButton } from "./EditButtons.tsx";
+import { UploadButton } from "./UploadButton.tsx";
 
 function Common(props: {
     initialTitle: string;
@@ -14,7 +15,7 @@ function Common(props: {
     const q = useQueryState(true);
     const token = useToken(q);
     const [title, setTitle] = useInput(props.initialTitle);
-    const [content, setContent] = useInput(props.initialContent);
+    const [content, setContent, setContentRaw] = useInput(props.initialContent);
     const isAdmin = useIsAdmin(token, q);
 
     return (
@@ -47,6 +48,12 @@ function Common(props: {
                                 >
                                     {props.submitText}
                                 </button>
+                                <UploadButton
+                                    callback={(url) =>
+                                        setContentRaw(
+                                            content + "\n" + `![image](${url})`,
+                                        )}
+                                />
                             </div>
                         </div>
                     )
