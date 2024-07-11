@@ -1,8 +1,11 @@
 import { useIsAdmin, useToken } from "../client/token.ts";
-import { useQueryState } from "../client/helper.ts";
+import { QueryState, useQueryState } from "../client/helper.ts";
 
 export function EditButton(
-    props: { edit: () => void; delete: (token: string) => void },
+    props: {
+        edit: () => void;
+        delete: (token: string, q: QueryState) => void;
+    },
 ) {
     const q = useQueryState(true);
     const token = useToken(q);
@@ -29,7 +32,7 @@ export function EditButton(
                                     style={{ width: "2rem" }}
                                 />
                             </a>
-                            <a onClick={() => props.delete(token!)}>
+                            <a onClick={() => props.delete(token!, q)}>
                                 <img
                                     src="/delete.svg"
                                     style={{ width: "2rem" }}

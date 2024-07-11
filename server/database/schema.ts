@@ -27,3 +27,12 @@ export const projects = sqliteTable("projects", {
         sql`(strftime('%s', 'now'))`,
     ).notNull(),
 });
+
+export const posts = sqliteTable("posts", {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    title: text("title").notNull(),
+    content: text("content").notNull(),
+    creationDate: integer("creation_date", { mode: "timestamp" }).default(
+        sql`(strftime('%s', 'now'))`,
+    ).notNull(),
+});

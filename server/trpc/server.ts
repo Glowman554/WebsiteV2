@@ -14,6 +14,7 @@ import {
     loadProjectsAll,
     updateProject,
 } from "../projects.ts";
+import { createPost, deletePost, updatePost } from "../posts.ts";
 
 const t = initTRPC.create({ transformer: superjson });
 
@@ -102,6 +103,39 @@ const projects = t.router({
     }),
 });
 
+const posts = t.router({
+    create: t.procedure.input(
+        z.object({
+            token: z.string(),
+            title: z.string(),
+            content: z.string(),
+        }),
+    ).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        return createPost(input.title, input.content);
+    }),
+    update: t.procedure.input(
+        z.object({
+            token: z.string(),
+            id: z.number().int(),
+            title: z.string(),
+            content: z.string(),
+        }),
+    ).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        await updatePost(input.title, input.content, input.id);
+    }),
+    delete: t.procedure.input(
+        z.object({
+            token: z.string(),
+            id: z.number().int(),
+        }),
+    ).mutation(async ({ input }) => {
+        await adminOnly(input.token);
+        await deletePost(input.id);
+    }),
+});
+
 export const appRouter = t.router({
     hello: t.procedure.input(z.string().nullish()).query(async ({ input }) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -109,6 +143,7 @@ export const appRouter = t.router({
     }),
     users,
     projects,
+    posts,
 });
 
 export type AppRouter = typeof appRouter;

@@ -154,37 +154,34 @@ export function ProjectEditField(props: { project: Project }) {
 }
 
 export function ProjectField(props: { data: Project }) {
-    const q = useQueryState(false);
     return (
-        <Query q={q}>
-            <div class="glow-row" style="margin-bottom: 1rem">
-                <div class="glow-row-rest" style="background-color: #252525">
-                    <h3 class="glow-section" style={{ margin: "0rem" }}>
-                        <a href={props.data.link}>{props.data.name}</a>
-                        <EditButton
-                            delete={(token) => {
-                                withQuery(
-                                    () =>
-                                        trpc.projects.delete.mutate(
-                                            {
-                                                id: props.data.id,
-                                                token,
-                                            },
-                                        ),
-                                    q,
-                                    () => {
-                                        location.href = "/";
-                                    },
-                                );
-                            }}
-                            edit={() =>
-                                location.href = "/internal/project/edit/" +
-                                    props.data.id}
-                        />
-                    </h3>
-                    {props.data.description}
-                </div>
+        <div class="glow-row" style="margin-bottom: 1rem">
+            <div class="glow-row-rest" style="background-color: #252525">
+                <h3 class="glow-section" style={{ margin: "0rem" }}>
+                    <a href={props.data.link}>{props.data.name}</a>
+                    <EditButton
+                        delete={(token, q) => {
+                            withQuery(
+                                () =>
+                                    trpc.projects.delete.mutate(
+                                        {
+                                            id: props.data.id,
+                                            token,
+                                        },
+                                    ),
+                                q,
+                                () => {
+                                    location.href = "/";
+                                },
+                            );
+                        }}
+                        edit={() =>
+                            location.href = "/internal/project/edit/" +
+                                props.data.id}
+                    />
+                </h3>
+                {props.data.description}
             </div>
-        </Query>
+        </div>
     );
 }
