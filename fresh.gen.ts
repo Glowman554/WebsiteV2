@@ -12,7 +12,6 @@ import * as $blog from "./routes/blog.tsx";
 import * as $blog_id_ from "./routes/blog/[id].tsx";
 import * as $contact from "./routes/contact.tsx";
 import * as $downloads from "./routes/downloads.tsx";
-import * as $fursona from "./routes/fursona.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $internal_account_create from "./routes/internal/account/create.tsx";
 import * as $internal_account_login from "./routes/internal/account/login.tsx";
@@ -50,7 +49,6 @@ const manifest = {
     "./routes/blog/[id].tsx": $blog_id_,
     "./routes/contact.tsx": $contact,
     "./routes/downloads.tsx": $downloads,
-    "./routes/fursona.tsx": $fursona,
     "./routes/index.tsx": $index,
     "./routes/internal/account/create.tsx": $internal_account_create,
     "./routes/internal/account/login.tsx": $internal_account_login,
