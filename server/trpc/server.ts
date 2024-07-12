@@ -155,10 +155,6 @@ const downloads = t.router({
 });
 
 export const appRouter = t.router({
-    hello: t.procedure.input(z.string().nullish()).query(async ({ input }) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return `hello ${input ?? "world"}`;
-    }),
     message: t.procedure.input(z.string()).mutation(async ({ input }) => {
         await sendWebHook(input);
     }),

@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 
 export function getAge() {
     const dayOfBirth = new Date();
@@ -25,9 +24,9 @@ export function getAge() {
 export default function Home() {
     return (
         <>
-            <Head>
+            <head>
                 <title>Glowman554 - About me</title>
-            </Head>
+            </head>
             <div class="glow-text">
                 <h1>whoami</h1>
                 <div>

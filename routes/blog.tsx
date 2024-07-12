@@ -1,13 +1,12 @@
-import { Head } from "$fresh/runtime.ts";
 import { getPosts } from "../server/posts.ts";
 
 export default async function Blog() {
     const posts = await getPosts();
     return (
         <>
-            <Head>
+            <head>
                 <title>Glowman554 - Blog</title>
-            </Head>
+            </head>
 
             <div class="glow-text">
                 <h1>Blog</h1>

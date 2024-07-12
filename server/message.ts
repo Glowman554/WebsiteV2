@@ -1,4 +1,4 @@
-import { Embed, Webhook } from "@hyunsdev/discord-webhook";
+import { Embed, Webhook } from "@teever/ez-hook";
 
 export async function sendWebHook(message: string) {
     if (message.trim() == "") {
@@ -10,10 +10,11 @@ export async function sendWebHook(message: string) {
         throw new Error("Missing MESSAGE_WEBHOOK");
     }
 
-    const client = new Webhook(webhookUrl, "Website");
-    const embed = new Embed({
-        title: "Message",
-        description: message,
-    });
-    await client.send("", [embed]);
+    await new Webhook(webhookUrl)
+        .setUsername("Website")
+        .addEmbed(
+            new Embed()
+                .setTitle("Message")
+                .setDescription(message),
+        ).send();
 }

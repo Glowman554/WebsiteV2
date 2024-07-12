@@ -5,6 +5,8 @@ const uploadthing = new UTApi();
 /**
  * Why won't your types work mister typescript youtuber?
  * Saying no javascript but fucking up your typescript types????
+ *
+ * nvm sorry just skill issue...
  */
 
 export async function upload(blob: Blob, filename: string): Promise<string> {
@@ -16,5 +18,5 @@ export async function upload(blob: Blob, filename: string): Promise<string> {
         throw new Error(result.error.message);
     }
 
-    return String(result.data.url);
+    return result.data.url;
 }

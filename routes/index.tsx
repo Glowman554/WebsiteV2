@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 import { ProjectField } from "../islands/Projects.tsx";
 import { VisitCounter } from "../islands/VisitCounter.tsx";
 import { loadProjects } from "../server/projects.ts";
@@ -7,9 +6,9 @@ export default async function Home() {
     const projects = await loadProjects(5);
     return (
         <>
-            <Head>
+            <head>
                 <title>Glowman554 - Home</title>
-            </Head>
+            </head>
             <div class="glow-text">
                 <h1>
                     Hello my name is Glowman554 and I'm happy to meet you 👍!

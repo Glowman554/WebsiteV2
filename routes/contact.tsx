@@ -1,12 +1,11 @@
-import { Head } from "$fresh/runtime.ts";
 import { MessageField } from "../islands/MessageField.tsx";
 
 export default function Contact() {
     return (
         <>
-            <Head>
+            <head>
                 <title>Glowman554 - Contact</title>
-            </Head>
+            </head>
             <div class="glow-text">
                 <h2>Contact Me:</h2>
 

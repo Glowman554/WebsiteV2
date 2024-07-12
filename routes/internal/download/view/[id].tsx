@@ -1,21 +1,17 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { PageProps } from "fresh";
 import { DownloadEntry } from "../../../../islands/Download.tsx";
-import { Download, getDownload } from "../../../../server/downloads.ts";
+import { getDownload } from "../../../../server/downloads.ts";
 
-export const handler: Handlers<Download | null> = {
-    async GET(_req, ctx) {
-        const id = Number(ctx.params.id);
-        return ctx.render(await getDownload(id));
-    },
-};
+export default async function View(props: PageProps) {
+    const id = Number(props.params.id);
+    const download = await getDownload(id);
 
-export default function View(props: PageProps<Download | null>) {
     return (
         <div class="glow-text">
-            {props.data
+            {download
                 ? (
                     <div class="glow-field">
-                        <DownloadEntry data={props.data} />
+                        <DownloadEntry data={download} />
                     </div>
                 )
                 : <p>Page not found</p>}

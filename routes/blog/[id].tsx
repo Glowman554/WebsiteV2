@@ -1,36 +1,31 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { Head } from "$fresh/runtime.ts";
-import { getPost, Post } from "../../server/posts.ts";
-import { CSS, render } from "$gfm";
+import { getPost } from "../../server/posts.ts";
+import { CSS, render } from "@deno/gfm";
 import { PostEditButton } from "../../islands/Blog.tsx";
+import { PageProps } from "fresh";
 
-export const handler: Handlers<Post | null> = {
-    async GET(_req, ctx) {
-        const id = Number(ctx.params.id);
-        return ctx.render(await getPost(id));
-    },
-};
+export default async function View(props: PageProps) {
+    const id = Number(props.params.id);
+    const post = await getPost(id);
 
-export default function View(props: PageProps<Post | null>) {
     return (
         <div class="glow-text">
-            {props.data
+            {post
                 ? (
                     <>
-                        <Head>
+                        <head>
                             <style dangerouslySetInnerHTML={{ __html: CSS }} />
-                            <title>Wiki - {props.data.title}</title>
-                        </Head>
+                            <title>Wiki - {post.title}</title>
+                        </head>
                         <div>
                             <h1 class="glow-section">
-                                {props.data.title}
-                                <PostEditButton id={props.data.id} />
+                                {post.title}
+                                <PostEditButton id={post.id} />
                             </h1>
                         </div>
                         <hr />
                         <div
                             dangerouslySetInnerHTML={{
-                                __html: render(props.data.content, {
+                                __html: render(post.content, {
                                     disableHtmlSanitization: true,
                                 }),
                             }}

@@ -1,20 +1,14 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { PageProps } from "fresh";
 import { EditPostField } from "../../../../islands/Blog.tsx";
-import { getPost, Post } from "../../../../server/posts.ts";
+import { getPost } from "../../../../server/posts.ts";
 
-export const handler: Handlers<Post | null> = {
-    async GET(_req, ctx) {
-        const id = Number(ctx.params.id);
-        return ctx.render(await getPost(id));
-    },
-};
+export default async function View(props: PageProps) {
+    const id = Number(props.params.id);
+    const post = await getPost(id);
 
-export default function View(props: PageProps<Post | null>) {
     return (
         <div class="glow-text">
-            {props.data
-                ? <EditPostField post={props.data} />
-                : <p>Page not found</p>}
+            {post ? <EditPostField post={post} /> : <p>Page not found</p>}
         </div>
     );
 }
