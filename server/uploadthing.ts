@@ -1,6 +1,10 @@
 import { UTApi } from "uploadthing/server";
 
-const uploadthing = new UTApi();
+let uploadthing: UTApi;
+
+export function utInit() {
+    uploadthing = new UTApi();
+}
 
 /**
  * Why won't your types work mister typescript youtuber?
