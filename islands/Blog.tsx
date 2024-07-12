@@ -1,4 +1,9 @@
-import { useInput, useQueryState, withQuery } from "../client/helper.ts";
+import {
+    useInput,
+    useQueryState,
+    useTextarea,
+    withQuery,
+} from "../client/helper.ts";
 import { useIsAdmin, useToken } from "../client/token.ts";
 import { Query } from "../components/Query.tsx";
 import { Post } from "../server/posts.ts";
@@ -15,7 +20,9 @@ function Common(props: {
     const q = useQueryState(true);
     const token = useToken(q);
     const [title, setTitle] = useInput(props.initialTitle);
-    const [content, setContent, setContentRaw] = useInput(props.initialContent);
+    const [content, setContent, setContentRaw] = useTextarea(
+        props.initialContent,
+    );
     const isAdmin = useIsAdmin(token, q);
 
     return (

@@ -1,11 +1,11 @@
 import { useState } from "preact/hooks";
-import { useInput, useQueryState, withQuery } from "../client/helper.ts";
+import { useQueryState, useTextarea, withQuery } from "../client/helper.ts";
 import { Query } from "../components/Query.tsx";
 import { trpc } from "../server/trpc/client.ts";
 
 export function MessageField() {
     const q = useQueryState(false);
-    const [message, messageChange] = useInput("");
+    const [message, messageChange] = useTextarea("");
     const [messageSent, setMessageSent] = useState(false);
 
     return (
