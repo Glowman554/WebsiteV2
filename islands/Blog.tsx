@@ -128,6 +128,7 @@ export function EditPostField(props: { post: Post }) {
 export function PostEditButton(props: { id: number }) {
     return (
         <EditButton
+            deleteWarning="You are about to delete this blog post!"
             delete={(token, q) => {
                 withQuery(
                     () => trpc.posts.delete.mutate({ token, id: props.id }),

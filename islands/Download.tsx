@@ -148,6 +148,7 @@ export function DownloadEntry(props: { data: Download }) {
         >
             <a href={props.data.link}>{props.data.name}</a>
             <EditButton
+                deleteWarning="You are about to delete this download!"
                 delete={(token, q) => {
                     withQuery(
                         () =>

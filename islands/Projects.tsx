@@ -160,6 +160,7 @@ export function ProjectField(props: { data: Project }) {
                 <h3 class="glow-section" style={{ margin: "0rem" }}>
                     <a href={props.data.link}>{props.data.name}</a>
                     <EditButton
+                        deleteWarning="You are about to delete this project!s"
                         delete={(token, q) => {
                             withQuery(
                                 () =>
