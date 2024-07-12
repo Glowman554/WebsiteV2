@@ -8,6 +8,13 @@ export default async function View(props: PageProps) {
 
     return (
         <div class="glow-text">
+            <head>
+                <title>
+                    {download
+                        ? "Glowman554 - " + download.name + " (editor)"
+                        : "Glowman554 - error"}
+                </title>
+            </head>
             {download
                 ? <DownloadEditField data={download} />
                 : <p>Page not found</p>}

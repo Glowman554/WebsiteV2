@@ -6,6 +6,9 @@ export default async function Downloads() {
 
     return (
         <div class="glow-text">
+            <head>
+                <title>Glowman554 - Downloads</title>
+            </head>
             <div class="glow-field">
                 <div class="glow-center">
                     <h1>Downloads</h1>

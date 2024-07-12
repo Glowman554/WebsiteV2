@@ -8,6 +8,13 @@ export default async function View(props: PageProps) {
 
     return (
         <div class="glow-text">
+            <head>
+                <title>
+                    {download
+                        ? "Glowman554 - " + download.name
+                        : "Glowman554 - error"}
+                </title>
+            </head>
             {download
                 ? (
                     <div class="glow-field">

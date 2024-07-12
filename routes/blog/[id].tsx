@@ -14,7 +14,7 @@ export default async function View(props: PageProps) {
                     <>
                         <head>
                             <style dangerouslySetInnerHTML={{ __html: CSS }} />
-                            <title>Wiki - {post.title}</title>
+                            <title>Glowman554 - {post.title}</title>
                         </head>
                         <div>
                             <h1 class="glow-section">

@@ -8,6 +8,13 @@ export default async function View(props: PageProps) {
 
     return (
         <div class="glow-text">
+            <head>
+                <title>
+                    {post
+                        ? "Glowman554 - " + post.title + " (editor)"
+                        : "Glowman554 - error"}
+                </title>
+            </head>
             {post ? <EditPostField post={post} /> : <p>Page not found</p>}
         </div>
     );
