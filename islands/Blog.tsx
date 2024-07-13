@@ -33,13 +33,13 @@ function Common(props: {
                         <div class="editor-container">
                             <input
                                 class="editor-title-input"
-                                onChange={setTitle}
+                                onInput={setTitle}
                                 type="text"
                                 value={title}
                             />
                             <textarea
                                 class="editor-content-textfield"
-                                onChange={setContent}
+                                onInput={setContent}
                                 value={content}
                             >
                             </textarea>

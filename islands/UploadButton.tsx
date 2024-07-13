@@ -51,7 +51,7 @@ export function UploadButton(props: { callback: (url: string) => void }) {
                 type="file"
                 ref={fileInput}
                 style={{ display: "none" }}
-                onChange={handleFileChange}
+                onInput={handleFileChange}
             />
         </Query>
     );

@@ -29,7 +29,7 @@ export function MessageField() {
                                 class="editor-content-textfield"
                                 style={{ height: "10rem" }}
                                 value={message}
-                                onChange={messageChange}
+                                onInput={messageChange}
                             >
                             </textarea>
                             <button

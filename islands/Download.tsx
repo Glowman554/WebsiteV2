@@ -34,7 +34,7 @@ function Common(props: {
                                 <input
                                     class="editor-general-input"
                                     type="text"
-                                    onChange={nameChange}
+                                    onInput={nameChange}
                                     value={name}
                                 />
                             </div>
@@ -44,7 +44,7 @@ function Common(props: {
                                 <input
                                     class="editor-general-input"
                                     type="text"
-                                    onChange={linkChange}
+                                    onInput={linkChange}
                                     value={link}
                                 />
                             </div>
