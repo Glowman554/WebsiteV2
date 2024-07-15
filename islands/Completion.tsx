@@ -40,7 +40,7 @@ export function CompletionBox(
                                             onClick={() => {
                                                 withQuery(
                                                     () =>
-                                                        trpc.completion.complete
+                                                        trpc.openai.complete
                                                             .query({
                                                                 token: token!,
                                                                 system: props
@@ -49,7 +49,11 @@ export function CompletionBox(
                                                             }),
                                                     q,
                                                     (result) => {
-                                                        props.result(result);
+                                                        if (result) {
+                                                            props.result(
+                                                                result,
+                                                            );
+                                                        }
                                                         props.reset();
                                                     },
                                                 );

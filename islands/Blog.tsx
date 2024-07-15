@@ -65,7 +65,7 @@ function Common(props: {
                                         true,
                                     )}
                                 >
-                                    AI Completion
+                                    AI Generation
                                 </button>
                                 <UploadButton
                                     callback={(url) =>
@@ -82,7 +82,7 @@ function Common(props: {
                                             false,
                                         )}
                                         result={setContentRaw}
-                                        system="You are an ai assistant generating thechnical blog posts written in markdown."
+                                        system="You are an AI assistant generating technical blog posts written in markdown. You should not use anything that is not included in standard markdown."
                                     />
                                 )
                                 : <></>}

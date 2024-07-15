@@ -155,7 +155,7 @@ const downloads = t.router({
     }),
 });
 
-const completion = t.router({
+const openai = t.router({
     complete: t.procedure.input(z.object({
         token: z.string(),
         system: z.string(),
@@ -174,7 +174,7 @@ export const appRouter = t.router({
     projects,
     posts,
     downloads,
-    completion,
+    openai,
 });
 
 export type AppRouter = typeof appRouter;
