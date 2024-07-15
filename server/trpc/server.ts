@@ -15,6 +15,7 @@ import {
     updateDownload,
 } from "../downloads.ts";
 import { sendWebHook } from "../message.ts";
+import { generate } from "../openai.ts";
 
 const t = initTRPC.create({ transformer: superjson });
 
@@ -154,6 +155,17 @@ const downloads = t.router({
     }),
 });
 
+const completion = t.router({
+    complete: t.procedure.input(z.object({
+        token: z.string(),
+        system: z.string(),
+        prompt: z.string(),
+    })).query(async ({ input }) => {
+        await adminOnly(input.token);
+        return await generate(input.system, input.prompt);
+    }),
+});
+
 export const appRouter = t.router({
     message: t.procedure.input(z.string()).mutation(async ({ input }) => {
         await sendWebHook(input);
@@ -162,6 +174,7 @@ export const appRouter = t.router({
     projects,
     posts,
     downloads,
+    completion,
 });
 
 export type AppRouter = typeof appRouter;

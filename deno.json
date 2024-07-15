@@ -30,6 +30,7 @@
     "@trpc/server": "npm:@trpc/server@10.32.0",
     "drizzle-orm": "npm:drizzle-orm@0.32.0",
     "fresh": "jsr:@fresh/core@^2.0.0-alpha.19",
+    "openai": "npm:openai@^4.52.7",
     "preact": "npm:preact@^10.22.1",
     "prismjs": "npm:prismjs@^1.29.0",
     "superjson": "npm:superjson@2.2.1",

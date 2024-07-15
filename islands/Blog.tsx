@@ -8,8 +8,10 @@ import { useIsAdmin, useToken } from "../client/token.ts";
 import { Query } from "../components/Query.tsx";
 import { Post } from "../server/posts.ts";
 import { trpc } from "../server/trpc/client.ts";
+import { CompletionBox } from "./Completion.tsx";
 import { EditButton } from "./EditButtons.tsx";
 import { UploadButton } from "./UploadButton.tsx";
+import { useState } from "preact/hooks";
 
 function Common(props: {
     initialTitle: string;
@@ -24,6 +26,7 @@ function Common(props: {
         props.initialContent,
     );
     const isAdmin = useIsAdmin(token, q);
+    const [showCompletionBox, setShowCompletionBox] = useState(false);
 
     return (
         <Query q={q}>
@@ -55,6 +58,15 @@ function Common(props: {
                                 >
                                     {props.submitText}
                                 </button>
+                                <button
+                                    class="editor-fancy-button"
+                                    onClick={setShowCompletionBox.bind(
+                                        null,
+                                        true,
+                                    )}
+                                >
+                                    AI Completion
+                                </button>
                                 <UploadButton
                                     callback={(url) =>
                                         setContentRaw(
@@ -62,6 +74,18 @@ function Common(props: {
                                         )}
                                 />
                             </div>
+                            {showCompletionBox
+                                ? (
+                                    <CompletionBox
+                                        reset={setShowCompletionBox.bind(
+                                            null,
+                                            false,
+                                        )}
+                                        result={setContentRaw}
+                                        system="You are an ai assistant generating thechnical blog posts written in markdown."
+                                    />
+                                )
+                                : <></>}
                         </div>
                     )
                     : <p>You need to be an admin to use this page</p>)
