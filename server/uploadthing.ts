@@ -24,3 +24,13 @@ export async function upload(blob: Blob, filename: string): Promise<string> {
 
     return result.data.url;
 }
+
+export async function uploadUrl(url: string): Promise<string> {
+    const result = await uploadthing.uploadFilesFromUrl(url);
+
+    if (result.error) {
+        throw new Error(result.error.message);
+    }
+
+    return result.data.url;
+}

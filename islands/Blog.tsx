@@ -8,10 +8,11 @@ import { useIsAdmin, useToken } from "../client/token.ts";
 import { Query } from "../components/Query.tsx";
 import { Post } from "../server/posts.ts";
 import { trpc } from "../server/trpc/client.ts";
-import { CompletionBox } from "./Completion.tsx";
+import { TextGenerationBox } from "./TextGeneration.tsx";
 import { EditButton } from "./EditButtons.tsx";
+import { ImageGenerationBox } from "./ImageGeneration.tsx";
+import { OverlayView } from "./OverlayView.tsx";
 import { UploadButton } from "./UploadButton.tsx";
-import { useState } from "preact/hooks";
 
 function Common(props: {
     initialTitle: string;
@@ -26,7 +27,11 @@ function Common(props: {
         props.initialContent,
     );
     const isAdmin = useIsAdmin(token, q);
-    const [showCompletionBox, setShowCompletionBox] = useState(false);
+
+    const image = (url: string) =>
+        setContentRaw(
+            content + "\n" + `![image](${url})`,
+        );
 
     return (
         <Query q={q}>
@@ -58,34 +63,19 @@ function Common(props: {
                                 >
                                     {props.submitText}
                                 </button>
-                                <button
-                                    class="editor-fancy-button"
-                                    onClick={setShowCompletionBox.bind(
-                                        null,
-                                        true,
-                                    )}
-                                >
-                                    AI Generation
-                                </button>
-                                <UploadButton
-                                    callback={(url) =>
-                                        setContentRaw(
-                                            content + "\n" + `![image](${url})`,
-                                        )}
-                                />
-                            </div>
-                            {showCompletionBox
-                                ? (
-                                    <CompletionBox
-                                        reset={setShowCompletionBox.bind(
-                                            null,
-                                            false,
-                                        )}
+                                <OverlayView text="Text generation">
+                                    <TextGenerationBox
                                         result={setContentRaw}
                                         system="You are an AI assistant generating technical blog posts written in markdown. You should not use anything that is not included in standard markdown."
                                     />
-                                )
-                                : <></>}
+                                </OverlayView>
+                                <OverlayView text="Image generation">
+                                    <ImageGenerationBox result={image} />
+                                </OverlayView>
+                                <UploadButton
+                                    callback={image}
+                                />
+                            </div>
                         </div>
                     )
                     : <p>You need to be an admin to use this page</p>)

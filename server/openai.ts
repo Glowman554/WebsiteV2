@@ -1,7 +1,8 @@
 import OpenAI from "openai";
 
 let openai: OpenAI;
-let model: string;
+let chatModel: string;
+let imageModel: string;
 
 export function openaiInit() {
     const key = Deno.env.get("OPENAI_KEY");
@@ -10,7 +11,8 @@ export function openaiInit() {
     }
 
     openai = new OpenAI({ apiKey: key });
-    model = Deno.env.get("OPENAI_MODEL") || "gpt-4o";
+    chatModel = Deno.env.get("OPENAI_CHAT_MODEL") || "gpt-4o";
+    imageModel = Deno.env.get("OPENAI_IMAGE_MODEL") || "dall-e-3";
 }
 
 export async function generate(system: string, prompt: string) {
@@ -19,10 +21,18 @@ export async function generate(system: string, prompt: string) {
             { role: "system", content: system },
             { role: "user", content: prompt },
         ],
-        model,
+        model: chatModel,
     });
 
-    console.log(completion);
-
     return completion.choices[0].message.content;
+}
+
+export async function generateImage(prompt: string) {
+    const image = await openai.images.generate({
+        prompt,
+        model: imageModel,
+        response_format: "url",
+    });
+
+    return image.data[0].url;
 }
