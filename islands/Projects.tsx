@@ -1,8 +1,9 @@
 import { useInput, useQueryState, withQuery } from "../client/helper.ts";
-import { useIsAdmin, useToken } from "../client/token.ts";
+import { useToken } from "../client/token.ts";
 import { Query } from "../components/Query.tsx";
 import { Project } from "../server/projects.ts";
 import { trpc } from "../server/trpc/client.ts";
+import { AdminOnly } from "./AdminOnly.tsx";
 import { EditButton } from "./EditButtons.tsx";
 
 function Common(props: {
@@ -19,7 +20,6 @@ function Common(props: {
 }) {
     const q = useQueryState(true);
     const token = useToken(q);
-    const isAdmin = useIsAdmin(token, q);
 
     const [name, nameChange] = useInput(props.initialName);
     const [link, linkChange] = useInput(props.initialLink);
@@ -27,56 +27,52 @@ function Common(props: {
 
     return (
         <Query q={q}>
-            {token
-                ? (isAdmin
-                    ? (
-                        <div class="editor-container">
-                            <div class="glow-section">
-                                Project name
-                                <input
-                                    class="editor-general-input"
-                                    type="text"
-                                    onInput={nameChange}
-                                    value={name}
-                                />
-                            </div>
-                            <div class="glow-section">
-                                Project link
+            <AdminOnly token={token}>
+                <div class="editor-container">
+                    <div class="glow-section">
+                        Project name
+                        <input
+                            class="editor-general-input"
+                            type="text"
+                            onInput={nameChange}
+                            value={name}
+                        />
+                    </div>
+                    <div class="glow-section">
+                        Project link
 
-                                <input
-                                    class="editor-general-input"
-                                    type="text"
-                                    onInput={linkChange}
-                                    value={link}
-                                />
-                            </div>
-                            <div class="glow-section">
-                                Project description
-                                <input
-                                    class="editor-general-input"
-                                    type="text"
-                                    onInput={descriptionChange}
-                                    value={description}
-                                />
-                            </div>
-                            <div class="editor-center">
-                                <button
-                                    class="editor-fancy-button"
-                                    onClick={() =>
-                                        props.callback(
-                                            name,
-                                            link,
-                                            description,
-                                            token,
-                                        )}
-                                >
-                                    {props.submitText}
-                                </button>
-                            </div>
-                        </div>
-                    )
-                    : <p>You need to be an admin to use this page</p>)
-                : <p>You need to be logged in to use this page</p>}
+                        <input
+                            class="editor-general-input"
+                            type="text"
+                            onInput={linkChange}
+                            value={link}
+                        />
+                    </div>
+                    <div class="glow-section">
+                        Project description
+                        <input
+                            class="editor-general-input"
+                            type="text"
+                            onInput={descriptionChange}
+                            value={description}
+                        />
+                    </div>
+                    <div class="editor-center">
+                        <button
+                            class="editor-fancy-button"
+                            onClick={() =>
+                                props.callback(
+                                    name,
+                                    link,
+                                    description,
+                                    token!,
+                                )}
+                        >
+                            {props.submitText}
+                        </button>
+                    </div>
+                </div>
+            </AdminOnly>
         </Query>
     );
 }

@@ -36,3 +36,15 @@ export function OverlayView(
         </>
     );
 }
+
+export function OverlayViewReset() {
+    const reset = useOverlayViewReset();
+    return (
+        <button
+            onClick={reset}
+            class="editor-fancy-button"
+        >
+            Cancel
+        </button>
+    );
+}

@@ -4,7 +4,7 @@ import {
     useTextarea,
     withQuery,
 } from "../client/helper.ts";
-import { useIsAdmin, useToken } from "../client/token.ts";
+import { useToken } from "../client/token.ts";
 import { Query } from "../components/Query.tsx";
 import { Post } from "../server/posts.ts";
 import { trpc } from "../server/trpc/client.ts";
@@ -13,6 +13,7 @@ import { EditButton } from "./EditButtons.tsx";
 import { ImageGenerationBox } from "./ImageGeneration.tsx";
 import { OverlayView } from "./OverlayView.tsx";
 import { UploadButton } from "./UploadButton.tsx";
+import { AdminOnly } from "./AdminOnly.tsx";
 
 function Common(props: {
     initialTitle: string;
@@ -26,7 +27,6 @@ function Common(props: {
     const [content, setContent, setContentRaw] = useTextarea(
         props.initialContent,
     );
-    const isAdmin = useIsAdmin(token, q);
 
     const image = (url: string) =>
         setContentRaw(
@@ -35,51 +35,47 @@ function Common(props: {
 
     return (
         <Query q={q}>
-            {token
-                ? (isAdmin
-                    ? (
-                        <div class="editor-container">
-                            <input
-                                class="editor-title-input"
-                                onInput={setTitle}
-                                type="text"
-                                value={title}
+            <AdminOnly token={token}>
+                <div class="editor-container">
+                    <input
+                        class="editor-title-input"
+                        onInput={setTitle}
+                        type="text"
+                        value={title}
+                    />
+                    <textarea
+                        class="editor-content-textfield"
+                        onInput={setContent}
+                        value={content}
+                    >
+                    </textarea>
+                    <div class="editor-center">
+                        <button
+                            class="editor-fancy-button"
+                            onClick={() =>
+                                props.callback(
+                                    title,
+                                    content,
+                                    token!,
+                                )}
+                        >
+                            {props.submitText}
+                        </button>
+                        <OverlayView text="Text generation">
+                            <TextGenerationBox
+                                result={setContentRaw}
+                                system="You are an AI assistant generating technical blog posts written in markdown. You should not use anything that is not included in standard markdown."
                             />
-                            <textarea
-                                class="editor-content-textfield"
-                                onInput={setContent}
-                                value={content}
-                            >
-                            </textarea>
-                            <div class="editor-center">
-                                <button
-                                    class="editor-fancy-button"
-                                    onClick={() =>
-                                        props.callback(
-                                            title,
-                                            content,
-                                            token,
-                                        )}
-                                >
-                                    {props.submitText}
-                                </button>
-                                <OverlayView text="Text generation">
-                                    <TextGenerationBox
-                                        result={setContentRaw}
-                                        system="You are an AI assistant generating technical blog posts written in markdown. You should not use anything that is not included in standard markdown."
-                                    />
-                                </OverlayView>
-                                <OverlayView text="Image generation">
-                                    <ImageGenerationBox result={image} />
-                                </OverlayView>
-                                <UploadButton
-                                    callback={image}
-                                />
-                            </div>
-                        </div>
-                    )
-                    : <p>You need to be an admin to use this page</p>)
-                : <p>You need to be logged in to use this page</p>}
+                        </OverlayView>
+                        <OverlayView text="Image generation">
+                            <ImageGenerationBox result={image} />
+                        </OverlayView>
+                        <UploadButton
+                            callback={image}
+                        />
+                    </div>
+                </div>
+            </AdminOnly>
         </Query>
     );
 }

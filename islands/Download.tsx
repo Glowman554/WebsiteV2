@@ -1,8 +1,9 @@
 import { useInput, useQueryState, withQuery } from "../client/helper.ts";
-import { useIsAdmin, useToken } from "../client/token.ts";
+import { useToken } from "../client/token.ts";
 import { Query } from "../components/Query.tsx";
 import { Download } from "../server/downloads.ts";
 import { trpc } from "../server/trpc/client.ts";
+import { AdminOnly } from "./AdminOnly.tsx";
 import { EditButton } from "./EditButtons.tsx";
 import { UploadButton } from "./UploadButton.tsx";
 
@@ -18,54 +19,49 @@ function Common(props: {
 }) {
     const q = useQueryState(true);
     const token = useToken(q);
-    const isAdmin = useIsAdmin(token, q);
 
     const [name, nameChange] = useInput(props.initialName);
     const [link, linkChange, setLink] = useInput(props.initialLink);
 
     return (
         <Query q={q}>
-            {token
-                ? (isAdmin
-                    ? (
-                        <div class="editor-container">
-                            <div class="glow-section">
-                                Download name
-                                <input
-                                    class="editor-general-input"
-                                    type="text"
-                                    onInput={nameChange}
-                                    value={name}
-                                />
-                            </div>
-                            <div class="glow-section">
-                                Download link
+            <AdminOnly token={token}>
+                <div class="editor-container">
+                    <div class="glow-section">
+                        Download name
+                        <input
+                            class="editor-general-input"
+                            type="text"
+                            onInput={nameChange}
+                            value={name}
+                        />
+                    </div>
+                    <div class="glow-section">
+                        Download link
 
-                                <input
-                                    class="editor-general-input"
-                                    type="text"
-                                    onInput={linkChange}
-                                    value={link}
-                                />
-                            </div>
-                            <div class="editor-center">
-                                <button
-                                    class="editor-fancy-button"
-                                    onClick={() =>
-                                        props.callback(
-                                            name,
-                                            link,
-                                            token,
-                                        )}
-                                >
-                                    {props.submitText}
-                                </button>
-                                <UploadButton callback={setLink} />
-                            </div>
-                        </div>
-                    )
-                    : <p>You need to be an admin to use this page</p>)
-                : <p>You need to be logged in to use this page</p>}
+                        <input
+                            class="editor-general-input"
+                            type="text"
+                            onInput={linkChange}
+                            value={link}
+                        />
+                    </div>
+                    <div class="editor-center">
+                        <button
+                            class="editor-fancy-button"
+                            onClick={() =>
+                                props.callback(
+                                    name,
+                                    link,
+                                    token!,
+                                )}
+                        >
+                            {props.submitText}
+                        </button>
+                        <UploadButton callback={setLink} />
+                    </div>
+                </div>
+            </AdminOnly>
         </Query>
     );
 }
