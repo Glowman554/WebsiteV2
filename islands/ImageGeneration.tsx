@@ -14,6 +14,7 @@ export function ImageGenerationBox(props: {
     const reset = useOverlayViewReset();
 
     const [url, setUrl] = useState<string | undefined>(undefined);
+
     const [prompt, promptChange] = useInput("");
 
     return (
@@ -22,11 +23,20 @@ export function ImageGenerationBox(props: {
                 ? (isAdmin
                     ? (
                         <div class="editor-container">
-                            {url ? <img src={url} /> : (
-                                <div class="glow-center">
-                                    No image generated yet!
-                                </div>
-                            )}
+                            <div class="glow-center">
+                                {url
+                                    ? (
+                                        <img
+                                            style={{
+                                                maxHeight: "40vh",
+                                                minWidth: "0",
+                                            }}
+                                            src={url}
+                                        />
+                                    )
+                                    : <p>No image generated yet!</p>}
+                            </div>
+
                             <div class="glow-section">
                                 Prompt
                                 <input
